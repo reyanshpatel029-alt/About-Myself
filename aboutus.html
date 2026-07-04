@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About My Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-1: #07111f;
+            --bg-2: #13233d;
+            --card: rgba(255, 255, 255, 0.12);
+            --text: #f8fafc;
+            --muted: #cbd5e1;
+            --accent: #7dd3fc;
+            --accent-2: #8b5cf6;
+            --border: rgba(255,255,255,0.22);
+            --shadow: 0 20px 45px rgba(2,8,23,0.35);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+            background-size: 200% 200%;
+            animation: gradientShift 18s ease infinite;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        body::before, body::after {
+            content: none;
+            display: none;
+        }
+
+        body::before {
+            top: -70px;
+            right: -80px;
+            background: #60a5fa;
+        }
+
+        body::after {
+            bottom: -80px;
+            left: -90px;
+            background: #a78bfa;
+            animation-delay: -4s;
+        }
+
+        .glass-card {
+            position: relative;
+            z-index: 1;
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            border-radius: 24px;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 960px;
+            margin: 0 auto 20px;
+            padding: 14px 18px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .topbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 999px;
+            transition: background 0.25s ease;
+        }
+
+        .topbar a:hover {
+            background: rgba(255,255,255,0.13);
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            color: var(--muted);
+            font-size: 1.02rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .card-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-top: 20px;
+        }
+
+        .info-card {
+            padding: 18px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.07));
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+        }
+
+        .info-card h3 {
+            font-family: 'Poppins', sans-serif;
+            margin: 0 0 8px;
+            color: white;
+        }
+
+        .info-card p {
+            color: var(--muted);
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 18px;
+            padding: 11px 16px;
+            border-radius: 999px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            box-shadow: 0 10px 24px rgba(15,23,42,0.22);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(15,23,42,0.3);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cursor-dot,
+        .cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: transform 0.16s ease-out, width 0.2s ease, height 0.2s ease;
+        }
+
+        .cursor-dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.95);
+        }
+
+        .cursor-ring {
+            width: 34px;
+            height: 34px;
+            border: 1px solid rgba(255,255,255,0.75);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-16px) scale(1.03); }
+        }
+
+        @media (max-width: 720px) {
+            body { padding: 14px; }
+            .topbar { flex-direction: column; gap: 10px; border-radius: 18px; }
+            .card-grid { grid-template-columns: 1fr; }
+            .glass-card { padding: 20px; }
+            .cursor-dot, .cursor-ring { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <a href="Resume.html">← Back to Resume</a>
+        <a href="#about">About</a>
+    </div>
+
+    <div class="glass-card reveal" id="about">
+        <h1>About My Resume</h1>
+        <p class="intro">This page presents a more refined view of the same professional story, emphasizing clarity, ease of reading and a premium visual language. The experience is intentionally quiet and polished rather than loud, so the focus remains on the content and the identity it communicates.</p>
+
+        <div class="card-grid">
+            <div class="info-card reveal">
+                <h3>Professional Identity</h3>
+                <p>I bring together technical understanding and thoughtful presentation, aiming for experiences that feel composed, modern and welcoming.</p>
+            </div>
+            <div class="info-card reveal">
+                <h3>Design Approach</h3>
+                <p>The visual direction uses soft glass surfaces, subtle shadows and gentle motion to create a premium portfolio atmosphere without distraction.</p>
+            </div>
+            <div class="info-card reveal">
+                <h3>Creative Focus</h3>
+                <p>Every element is designed to feel intentional, with balanced spacing, calm color contrast and smooth transitions that support the content.</p>
+            </div>
+            <div class="info-card reveal">
+                <h3>Viewer Experience</h3>
+                <p>The layout stays responsive across screen sizes, keeping the experience refined on both desktop and mobile devices.</p>
+            </div>
+        </div>
+
+        <a href="Resume.html" class="btn">Open the Resume Page</a>
+    </div>
+
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <script>
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        revealElements.forEach((element) => observer.observe(element));
+
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let dotX = mouseX;
+        let dotY = mouseY;
+        let ringX = mouseX;
+        let ringY = mouseY;
+
+        const moveCursor = () => {
+            dotX += (mouseX - dotX) * 0.22;
+            dotY += (mouseY - dotY) * 0.22;
+            ringX += (mouseX - ringX) * 0.12;
+            ringY += (mouseY - ringY) * 0.12;
+            cursorDot.style.left = `${dotX}px`;
+            cursorDot.style.top = `${dotY}px`;
+            cursorRing.style.left = `${ringX}px`;
+            cursorRing.style.top = `${ringY}px`;
+            requestAnimationFrame(moveCursor);
+        };
+        moveCursor();
+
+        window.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+        });
+
+        document.querySelectorAll('a, .info-card').forEach((element) => {
+            element.addEventListener('mouseenter', () => {
+                cursorDot.style.transform = 'translate(-50%, -50%) scale(1.45)';
+                cursorRing.style.transform = 'translate(-50%, -50%) scale(1.1)';
+            });
+            element.addEventListener('mouseleave', () => {
+                cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
+
